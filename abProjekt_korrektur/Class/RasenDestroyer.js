@@ -1,38 +1,14 @@
 class RasenDestroyer extends Creature{
-  zeile;
-  spalte;
-  energy = 15;
 
   constructor(z,s) {
-    super.constructor(z,s);
+    super(z,s);
   };
   spawn() {
     matrix[this.zeile][this.spalte] = 2;
   };
-  scan() {
-    let benachbarteFelder = [
-      [this.zeile - 1, this.spalte],
-      [this.zeile, this.spalte + 1],
-      [this.zeile + 1, this.spalte],
-      [this.zeile, this.spalte - 1]
-    ];
-
-    let freieFelder = [];
-
-    for (let i = 0; i < benachbarteFelder.length; i++) {
-      let feld = benachbarteFelder[i];
-
-      if (feld[0] >= 0
-        && feld[1] >= 0
-        && feld[0] < matrix.length
-        && feld[1] < matrix.length
-        && (matrix[feld[0]][feld[1]] === 1 || matrix[feld[0]][feld[1]] === 1)
-      ) {
-        freieFelder.push(feld);
-      }
-    }
-    return freieFelder;
-  };
+  scan(){
+    return super.scan(1);
+  }
   loeschGrasZelle(z,s){
     for(let i=0; i<grassArray.length; i++){
       let grasObjekt = grassArray[i];
@@ -86,7 +62,7 @@ class RasenDestroyer extends Creature{
     if (this.energy > 30) {
       this.energy -= 1;
       this.multiply();
-    } else if(this.energy > 0) {
+    }else if(this.energy > 0) {
       this.energy -= 1;
       this.move();
     } else {

@@ -1,10 +1,8 @@
 let j = 0;
 class Water extends Creature{
-    zeile;
-    spalte;
-  
+
     constructor(z,s) {
-      super.constructor(z,s);
+      super(z,s);
     };
     spawn(){
       matrix[this.zeile][this.spalte] = 3;
@@ -33,30 +31,9 @@ class Water extends Creature{
       }
       return freieFelder;
     };
-    scan() {
-        let neighbour = [
-          [this.zeile - 1, this.spalte],
-          [this.zeile, this.spalte + 1],
-          [this.zeile + 1, this.spalte],
-          [this.zeile, this.spalte - 1]
-        ];
-    
-        let freeField = [];
-    
-        for (let i = 0; i < neighbour.length; i++) {
-          let feld = neighbour[i];
-    
-          if (feld[0] >= 0
-            && feld[1] >= 0
-            && feld[0] < matrix.length
-            && feld[1] < matrix.length
-            && ((matrix[feld[0]][feld[1]] === 0 || matrix[feld[0]][feld[1]] === 3) || matrix[feld[0]][feld[1]] === 2)
-          ) {
-            freeField.push(feld);
-          }
-        }
-        return freeField;
-      };
+    scan(){
+      return super.scan(1);
+    }
     grow(){
         let freieFelder = this.scanGrass();
         let freeField = this.scan();

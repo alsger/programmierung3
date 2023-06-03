@@ -4,21 +4,21 @@ let map = 100;
 let matrix = [];
 
 let rasenDestroyerArray = [
-  new RasenDestroyer(2,2),
+  new RasenDestroyer(10, 2),
 ];
 
 let waterArray = [
 
-  new Water(randomNumber(0, map-1), randomNumber(0, map-1)),
-  new Water(randomNumber(0, map-1), randomNumber(0, map-1))
+  new Water(randomNumber(0, map - 1), randomNumber(0, map - 1)),
+  new Water(randomNumber(0, map - 1), randomNumber(0, map - 1))
 ];
 
 let grassArray = [
-  new Grass(2,1),
-  new Grass(1,1),
-  new Grass(1,2),
-  new Grass(1,4),
-  new Grass(1,6)
+  new Grass(2, 1),
+  new Grass(1, 1),
+  new Grass(1, 2),
+  new Grass(1, 4),
+  new Grass(1, 6)
 ];
 
 //Setup & Draw Function
@@ -26,9 +26,9 @@ function setup() {
 
   mCanvas(50);  //frameRate
   mMapCreator(); //Matrix creator
-  
+
   // RasenDestroyer spawner
-  for (let i = 0; i < rasenDestroyerArray.length; i++){
+  for (let i = 0; i < rasenDestroyerArray.length; i++) {
     rasenDestroyerArray[i].spawn();
   }
 
@@ -43,13 +43,13 @@ function setup() {
   }
 
 };
-  
+
 function draw() {
-  
+
   mMapMaterial(); //Add the matrial of the map Squares
-    
+
   //Rasen destroyer move
-  for (let i = 0; i < rasenDestroyerArray.length; i++){
+  for (let i = 0; i < rasenDestroyerArray.length; i++) {
     rasenDestroyerArray[i].step();
   }
 
@@ -63,4 +63,3 @@ function draw() {
     grassArray[i].multiply();
   }
 };
-  
