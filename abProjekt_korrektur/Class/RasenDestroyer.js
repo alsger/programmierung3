@@ -1,11 +1,10 @@
-class RasenDestroyer {
+class RasenDestroyer extends Creature{
   zeile;
   spalte;
   energy = 15;
 
   constructor(z,s) {
-    this.zeile = z;
-    this.spalte = s;
+    super.constructor(z,s);
   };
   spawn() {
     matrix[this.zeile][this.spalte] = 2;

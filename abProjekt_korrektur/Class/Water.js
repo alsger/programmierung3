@@ -1,11 +1,10 @@
 let j = 0;
-class Water{
+class Water extends Creature{
     zeile;
     spalte;
   
     constructor(z,s) {
-      this.zeile = z;
-      this.spalte = s;
+      super.constructor(z,s);
     };
     spawn(){
       matrix[this.zeile][this.spalte] = 3;

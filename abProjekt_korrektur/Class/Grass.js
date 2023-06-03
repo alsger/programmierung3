@@ -1,12 +1,11 @@
 let border = 0;
-class Grass {
+class Grass extends Creature{
   zeile;
   spalte;
   multiplyTimer;
 
   constructor(z, s) {
-    this.zeile = z;
-    this.spalte = s;
+    super.constructor(z,s);
     this.multiplyTimer = 0;
   };
   spawn() {
