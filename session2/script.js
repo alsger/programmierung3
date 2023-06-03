@@ -3,7 +3,7 @@ let obj = {
     
     sayHello()
     {
-        console.log("Hello!");
+        console.log("Hello " + this.first_name);
     }
 };
 
