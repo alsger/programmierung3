@@ -4,7 +4,7 @@ let map = 100;
 let matrix = [];
 
 let rasenDestroyerArray = [
-  new RasenDestroyer(10, 2),
+  new RasenDestroyer(2, 2),
 ];
 
 let waterArray = [
