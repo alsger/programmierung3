@@ -1,5 +1,6 @@
+const Creature = require("./Creature");
 let j = 0;
-class Water extends Creature{
+module.exports= class Water extends Creature{
 
     constructor(z,s) {
       super(z,s);

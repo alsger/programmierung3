@@ -1,3 +1,8 @@
+const Creature = require("../Class/Creature");
+const Creature = require("../Class/Grass");
+const Creature = require("../Class/RasenDestroyer");
+const Creature = require("../Class/Water");
+
 //Variables
 let seite = 10;
 let map = 100;

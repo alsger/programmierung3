@@ -1,4 +1,5 @@
-class RasenDestroyer extends Creature{
+const Creature = require("./Creature");
+module.exports= class RasenDestroyer extends Creature{
 
   constructor(z,s) {
     super(z,s);

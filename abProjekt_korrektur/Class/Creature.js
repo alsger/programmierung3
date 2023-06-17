@@ -1,4 +1,4 @@
-class Creature
+module.exports=  class Creature
 {
   zeile;
   spalte;
