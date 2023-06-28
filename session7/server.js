@@ -3,6 +3,7 @@ const Grazer = require('./grazer');
 const Predator = require('./predator');
 
 const express = require('express');
+const { Socket } = require('socket.io');
 const app = express();
 let server = require('http').Server(app);
 const io = require('socket.io')(server);
@@ -120,10 +121,17 @@ function updateGame() {
 
 server.listen(3000, function () {
     console.log("Server wurde gestartet und hört auf Port 3000.");
-    
-    initGame();
-    // console.log(grazerArr);
-    setInterval(function () {
-        updateGame(); // ehemals draw
-    }, 1000);
+})
+
+io.on('connection', function(socket){
+    console.log('ws connection established....', io.engine.clientsCount);
+
+    if(io.engine.clientsCount === 1){
+        initGame();
+        // console.log(grazerArr);
+        setInterval(function () {
+            updateGame(); // ehemals draw
+            socket.emit('send matrix', matrix);
+        }, 500);
+    }
 })
