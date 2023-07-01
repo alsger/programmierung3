@@ -13,18 +13,11 @@ app.get('/', function(req, res){
     res.redirect('client.html');
 })
 
-matrix = [
-    [0, 0, 1, 0, 0],
-    [1, 0, 0, 0, 0],
-    [0, 1, 0, 0, 0],
-    [0, 0, 1, 3, 0],
-    [1, 1, 0, 0, 0],
-    [1, 1, 0, 2, 0],
-    [1, 1, 0, 0, 0]
-];
+matrix = [];
 
 let fr = 3;
-let side = 10;
+let map = 20;
+let side = 20;
 
 // 
 grassArr = [];
@@ -46,7 +39,6 @@ function getRandomMatrix(width, height) {
     }
     return matrix;
 }
-
 function createMoreCreatures() {
     // Grasfresser und Fleischfresser
     for (let y = 0; y < matrix.length; y++) {
@@ -65,8 +57,8 @@ function createMoreCreatures() {
 
 function initGame() {
     console.log('init Game...');
-    // matrix = getRandomMatrix(50, 50);
-    // createMoreCreatures();
+    matrix = getRandomMatrix(map, map);
+    //createMoreCreatures();
     for (let y = 0; y < matrix.length; y++) {
         for (let x = 0; x < matrix[y].length; x++) {
             if (matrix[y][x] == 1) {
@@ -97,21 +89,19 @@ function updateGame() {
         predArr[i].eat();
 
     }
+}
+
+function killAll(data){
+    console.log("Client Event erhalten: ", data);
 
     for (let y = 0; y < matrix.length; y++) {
         for (let x = 0; x < matrix[y].length; x++) {
-            // fill('white');
-            // if (matrix[y][x] == 1) {
-            //     fill("#28764F")
-            // } else if (matrix[y][x] == 2) {
-            //     fill('#DB960B')
-            // } else if (matrix[y][x] == 3) {
-            //     fill('#961707')
-            // }
-            //rect(x * side, y * side, side, side);
-            // console.log(matrix);
+            matrix[y][x] = 0;
         }
     }
+    grassArr = [];
+    grazerArr = [];
+    predArr = [];
 }
 
 ////////////////////////////////////////
@@ -128,10 +118,16 @@ io.on('connection', function(socket){
 
     if(io.engine.clientsCount === 1){
         initGame();
+        socket.emit('init matrix', matrix);
         // console.log(grazerArr);
         setInterval(function () {
             updateGame(); // ehemals draw
-            socket.emit('send matrix', matrix);
-        }, 500);
+            io.sockets.emit('send matrix', matrix);
+        }, 100);
+    }else{
+        socket.emit('init matrix', matrix);
     }
+
+    //
+    socket.on("kill All", killAll);
 })

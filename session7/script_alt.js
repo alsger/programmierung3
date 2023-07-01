@@ -1,47 +1,21 @@
-function main(){
-    console.log("main is executed...");
-    const socket = io();
-
-    function openMatrix(matrixData){
-        // zeichne diese Matrix
-        matrix = matrixData;
-    }
-    function initMatrix(matrixData){
-        matrix = matrixData;
-        resizeCanvas(matrix[0].length * side +1, matrix.length * side);
-    }
-    socket.on('send matrix', openMatrix);
-    socket.on('init matrix', initMatrix);
-
-    //imports
-    function killAll(){
-        // sende Nachrichten an Server
-        socket.emit('kill All', 'Grazer');
-    }
-    let btn = document.getElementById('myGameBtn');
-    btn.onclick = killAll;
-}
-
-main();
-let matrix = [];
+let matrix = [
+    [0, 0, 1, 0, 0],
+    [1, 0, 0, 0, 0],
+    [0, 1, 0, 0, 0],
+    [0, 0, 1, 3, 0],
+    [1, 1, 0, 0, 0],
+    [1, 1, 0, 2, 0],
+    [1, 1, 0, 0, 0]
+];
 
 
-let fr = 5;
-let map = 20;
-let side = 20;
+let fr = 3;
+let side = 10;
 
+// 
 let grassArr = [];
 let grazerArr = [];
 let predArr = [];
-
-function mMapCreator(){
-    for (let z = 0; z < map; z++) {
-      matrix.push([]);
-      for (let s = 0; s < map; s++) {
-        matrix[z].push(0);
-      }
-    };
-  }
 
 // Funktionen definieren
 function getRandomMatrix(width, height) {
@@ -77,12 +51,26 @@ function createMoreCreatures() {
 
 // einmal bei Programmstart
 function setup() {
-    matrix = getRandomMatrix(map, map);
-    //createMoreCreatures();
+    matrix = getRandomMatrix(50, 50);
+    createMoreCreatures();
 
-    createCanvas(matrix[0].length * side, matrix.length * side);
+    createCanvas(matrix[0].length * side + 1, matrix.length * side + 1);
     background('#acacac');
     frameRate(fr);
+
+    for (let y = 0; y < matrix.length; y++) {
+        for (let x = 0; x < matrix[y].length; x++) {
+            if (matrix[y][x] == 1) {
+                grassArr.push(new Grass(x, y));
+            } else if (matrix[y][x] == 2) {
+                grazerArr.push(new Grazer(x, y));
+            }
+            else if (matrix[y][x] == 3) {
+                predArr.push(new Predator(x, y));
+            }
+        }
+    }
+
 }
 
 // wiederholend
@@ -104,15 +92,16 @@ function draw() {
 
     for (let y = 0; y < matrix.length; y++) {
         for (let x = 0; x < matrix[y].length; x++) {
-             fill('white');
-             if (matrix[y][x] == 1) {
-                 fill("#28764F")
-             } else if (matrix[y][x] == 2) {
-                 fill('#DB960B')
-             } else if (matrix[y][x] == 3) {
-                 fill('#961707')
-             }
-            rect(x * side, y * side, side, side);
+            // fill('white');
+            // if (matrix[y][x] == 1) {
+            //     fill("#28764F")
+            // } else if (matrix[y][x] == 2) {
+            //     fill('#DB960B')
+            // } else if (matrix[y][x] == 3) {
+            //     fill('#961707')
+            // }
+            //rect(x * side, y * side, side, side);
+            console.log(matrix);
         }
     }
 
